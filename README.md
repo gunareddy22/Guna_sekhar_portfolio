@@ -19,7 +19,7 @@ It uses Next.js, React, ShadCN UI components, Tailwind CSS, and Genkit (for pote
     ```bash
     npm run dev
     ```
-    Open [http://localhost:9002](http://localhost:9002) (or the port specified in `package.json`) with your browser to see the result.
+    Open [http://localhost:9002](http://localhost:9002) (or the port specified in `package.json`) with your browser to see the result..
 
 4.  **Add your resume:**
     Place your `resume.pdf` file in the `public/` directory.
