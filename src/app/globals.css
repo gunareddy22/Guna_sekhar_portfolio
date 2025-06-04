@@ -2,11 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  background-color: limegreen !important; /* Highly visible test color */
-  font-family: 'Comic Sans MS', 'Comic Sans', cursive !important; /* Highly visible test font */
-  color: purple !important; /* Highly visible test text color */
-}
+/* The body rule below is responsible for applying the main background and text colors. */
+/* It was previously commented out for testing, now it's restored. */
 
 @layer base {
   :root {
@@ -106,9 +103,7 @@ body {
   * {
     @apply border-border;
   }
-  /* The original body rule that uses CSS variables is commented out for this test.
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground; /* This line applies the theme colors */
   } 
-  */
 }
