@@ -1,0 +1,58 @@
+
+name: Deploy Next.js to GitHub Pages
+
+on:
+  # Runs on pushes targeting the default branch (usually main or master)
+  push:
+    branches: ["main"] # Change this if your default branch is different
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20" # Or your project's Node.js version from package.json
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Next.js app
+        run: npm run build
+        env:
+          # This sets GITHUB_REPOSITORY_NAME for next.config.js
+          # It becomes the repository name (e.g., 'my-portfolio') if deploying to a project page.
+          # It becomes an empty string if deploying to a user/org page (e.g., your-username.github.io),
+          # so basePath and assetPrefix will be empty as needed.
+          GITHUB_REPOSITORY_NAME: ${{ github.event.repository.name != format('{0}.github.io', github.repository_owner) && github.event.repository.name || '' }}
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Path to the folder produced by `npm run build` (Next.js static export)
+          path: ./out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
