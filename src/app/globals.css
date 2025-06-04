@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  background-color: limegreen !important; /* Highly visible test color */
+  font-family: 'Comic Sans MS', 'Comic Sans', cursive !important; /* Highly visible test font */
+  color: purple !important; /* Highly visible test text color */
+}
+
 @layer base {
   :root {
     --background: 204 60% 97%; /* Alice Blue: #F0F8FF */
@@ -100,7 +106,9 @@
   * {
     @apply border-border;
   }
+  /* The original body rule that uses CSS variables is commented out for this test.
   body {
     @apply bg-background text-foreground;
-  }
+  } 
+  */
 }
